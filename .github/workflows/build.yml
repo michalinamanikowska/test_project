@@ -52,5 +52,7 @@ jobs:
         with:
           model: 'iPhone 8'
       - run: flutter test integration_test/app_test.dart
+      - run: flutter doctor -v
+      - run: flutter pub get
       - run: flutter build ios --flavor trasa_prod --target lib/main_trasa_prod.dart --no-codesign
       - run: flutter build ios --flavor autohiver_prod --target lib/main_autohiver_prod.dart --no-codesign
