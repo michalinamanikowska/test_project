@@ -28,7 +28,9 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           script: flutter test integration_test/app_test.dart
-      - run: flutter build appbundle --flavor trasa_prod --target lib/main_trasa_prod.dart --debug
+      - run: flutter doctor -v
+      - run: flutter pub get
+      # - run: flutter build appbundle --flavor trasa_prod --target lib/main_trasa_prod.dart --debug
       - run: flutter build appbundle --flavor autohiver_prod --target lib/main_autohiver_prod.dart --debug
 
 
@@ -54,5 +56,5 @@ jobs:
       - run: flutter test integration_test/app_test.dart
       - run: flutter doctor -v
       - run: flutter pub get
-      - run: flutter build ios --flavor trasa_prod --target lib/main_trasa_prod.dart --no-codesign
+      # - run: flutter build ios --flavor trasa_prod --target lib/main_trasa_prod.dart --no-codesign
       - run: flutter build ios --flavor autohiver_prod --target lib/main_autohiver_prod.dart --no-codesign
