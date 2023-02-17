@@ -18,8 +18,10 @@ jobs:
         with:
           flutter-version: '2.10.2'
           channel: 'stable'
-
-      # Run integration test
+      - run: flutter doctor -v
+      - run: flutter pub get
+      - run: flutter build appbundle --flavor trasa_prod --target lib/main_trasa_prod.dart --debug
+      - run: flutter build appbundle --flavor autohiver_prod --target lib/main_autohiver_prod.dart --debug
       - name: Run Flutter Driver tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -28,10 +30,6 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           script: flutter test integration_test/app_test.dart
-      - run: flutter doctor -v
-      - run: flutter pub get
-      # - run: flutter build appbundle --flavor trasa_prod --target lib/main_trasa_prod.dart --debug
-      - run: flutter build appbundle --flavor autohiver_prod --target lib/main_autohiver_prod.dart --debug
 
 
   ios:
@@ -50,11 +48,9 @@ jobs:
       - run: flutter config --enable-macos-desktop
       - run: flutter doctor -v
       - run: flutter pub get
+      - run: flutter build ios --flavor trasa_prod --target lib/main_trasa_prod.dart --no-codesign
+      - run: flutter build ios --flavor autohiver_prod --target lib/main_autohiver_prod.dart --no-codesign
       - uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone 8'
       - run: flutter test integration_test/app_test.dart
-      - run: flutter doctor -v
-      - run: flutter pub get
-      # - run: flutter build ios --flavor trasa_prod --target lib/main_trasa_prod.dart --no-codesign
-      - run: flutter build ios --flavor autohiver_prod --target lib/main_autohiver_prod.dart --no-codesign
