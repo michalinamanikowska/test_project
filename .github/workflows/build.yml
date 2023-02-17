@@ -18,9 +18,6 @@ jobs:
         with:
           flutter-version: '2.10.2'
           channel: 'stable'
-      - run: flutter doctor -v
-      - run: flutter pub get
-      - run: flutter build appbundle --debug
       - name: Run Flutter Driver tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -29,6 +26,9 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           script: flutter test integration_test/app_test.dart
+      - run: flutter doctor -v
+      - run: flutter pub get
+      - run: flutter build appbundle --debug
 
 
   ios:
