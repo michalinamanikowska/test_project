@@ -10,18 +10,17 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [29]
-        target: [playstore]
+        api-level: 29
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.10.2'
           channel: 'stable'
-
-      # Run integration test
-      - name: Run Flutter Driver tests
-        uses: reactivecircus/android-emulator-runner@v2
+      - run: flutter config --enable-macos-desktop
+      - run: flutter doctor -v
+      - run: flutter pub get
+      - uses: reactivecircus/android-emulator-runner@v2
         with:
           target: ${{ matrix.target }}
           api-level: ${{ matrix.api-level }}
